@@ -11,7 +11,9 @@ import sys
 import math
 import json
 import pygame
-import winsound
+import os
+
+path = os.getcwd()
 
 GAMEINSTANCE = TicTacToe()
 
@@ -32,7 +34,11 @@ PLAYER_UI_ELEMENTS={
 # pygame.mixer.init()# initialise the pygame
 def play():
     print("Testing music")
+    # backgroundMusic = "sounds\Intense_mechanical_music.mp3"
+    # playsound(backgroundMusic, False)
+    
     playsound("C:\\Users\\Yuon\\PersonalProjects\\CodeProjects\\Python\\TicTacToeApp\\sounds\\Intense_mechanical_music.mp3", False)
+    
     print("After playing music")
     # pygame.mixer.music.load(r"C:\Users\Yuon\PersonalProjects\CodeProjects\Python\TicTacToeApp\sounds\Intense_mechanical_music.mp3")
     # pygame.mixer.music.play(loops=-1)
