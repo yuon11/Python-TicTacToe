@@ -9,7 +9,7 @@ from shutil import move
 import sys
 from tabnanny import check
 from webbrowser import get
-import numpy as np
+# import numpy as np
 # x = np.random.random((3,3,3))
 
 class TicTacToe():
@@ -136,31 +136,41 @@ class TicTacToe():
         for row in self._defaultGameBoard:
             print(row)
     
-    # Check is player has won game
+    # Check if player has won game
     def checkWinState(self, player="player1")->bool:
         playerMove=self.getPlayerMove(player)
         rowMove= playerMove[0]-1
         colMove= playerMove[1]-1
-        playerAvatar = self.getPlayerAvatar(player)
 
-        # Print which way the user won
-        if(self.checkVertical(colMove, playerAvatar)):
-            self.printWinMessage(player)
-            self._winCondition=True
-            return True
-        if(self.checkHorizontal(rowMove, playerAvatar)):
-            self.printWinMessage(player)
-            self._winCondition=True
-            return True
-        if(self.checkDiagonal(playerAvatar)):
-            self.printWinMessage(player)
-            self._winCondition=True
-            return True
-        if(self.checkReverseDiagonal(playerAvatar)):
-            self.printWinMessage(player)
-            self._winCondition=True
-            return True
+        if(self.checkPlayerMoves(rowMove, colMove, player)):
+            # Print which way the user won
+            if(self.checkVertical(colMove, player)):
+                self.printWinMessage(player)
+                self._winCondition=True
+                return True
+            if(self.checkHorizontal(rowMove, player)):
+                self.printWinMessage(player)
+                self._winCondition=True
+                return True
+            if(self.checkDiagonal(player)):
+                self.printWinMessage(player)
+                self._winCondition=True
+                return True
+            if(self.checkReverseDiagonal(player)):
+                self.printWinMessage(player)
+                self._winCondition=True
+                return True
         return False
+    
+    # Check if the player moves include the row/col
+    # This is to verify that a player placed their avatar in an index, if P1 and P2 have matching avatars 
+    def checkPlayerMoves(self, boardRow, boardCol, player)->bool:
+        for move in self._playerDirectory[player]["moves"]:
+            print("checkPlayerMoves PLAYER MOVES " + str(move))
+            if boardRow==move[0] and boardCol==[1]:
+                return True
+        return False
+        
 
     # Check if the game is in a draw state
     def checkDrawState(self):
@@ -173,8 +183,8 @@ class TicTacToe():
             return False
 
     # Check for win from top to bottom
-    def checkVertical(self, col, playerAvatar):
-
+    def checkVertical(self, col, player):
+        playerAvatar = self.getPlayerAvatar(player)
         for boardRow in self._defaultGameBoard:
             if(boardRow[col]==playerAvatar):
                 continue
@@ -183,7 +193,8 @@ class TicTacToe():
         return True
 
     # Check for win from left to right
-    def checkHorizontal(self, row, playerAvatar):
+    def checkHorizontal(self, row, player):
+        playerAvatar = self.getPlayerAvatar(player)
         for boardCol in self._defaultGameBoard[row]:
             if(boardCol==playerAvatar):
                 continue
@@ -192,7 +203,8 @@ class TicTacToe():
         return True
 
     # Check for win from Right to Left diagonal
-    def checkDiagonal(self, playerAvatar):
+    def checkDiagonal(self, player):
+        playerAvatar = self.getPlayerAvatar(player)
         col=0
         for boardRow in self._defaultGameBoard:
             if(boardRow[col]==playerAvatar):
@@ -203,7 +215,8 @@ class TicTacToe():
         return True
 
     # Check for win from right to left diagonal
-    def checkReverseDiagonal(self, playerAvatar):
+    def checkReverseDiagonal(self, player):
+        playerAvatar = self.getPlayerAvatar(player)
         col=-1
         for boardRow in self._defaultGameBoard:
             if(boardRow[col]==playerAvatar):
@@ -276,44 +289,15 @@ class TicTacToe():
         self.drawGameBoard()
         self._winCondition = self.checkWinState(player)
         self._drawState = self.checkDrawState()
-        
 
-# # Main Game loop that will control the flow of the game
-# # The game opbject holds all necessary functions to play the game
-# def GameLoop():
+class TicTacToeAI():
+    def __init__(self, TicTacToe) -> None:
+        self.TICTACTOE_INST
     
-#     # Instantiate Game Object and win state
-#     gameInstance = TicTacToe()
-#     gameInstance.SETUP()
-#     gameInstance.printPlayerInfo()
 
-#     # BEGIN GAME LOOP
-#     while not gameInstance._winCondition and not gameInstance._drawState:
-#         try:
-#             gameInstance.gameRound("player1")
+    # This method has the AI randomly select a move to make on the board
+    def makeRandomMove():
+        pass
 
-#             if(not gameInstance._winCondition and not gameInstance._drawState):
-#                 gameInstance.gameRound("player2")
-                    
-#             if(gameInstance._winCondition or gameInstance._drawState):
-#                 gameInstance.playAgain()
-                
-#         except ValueError:
-#             print("\n")
-#             print("Invalid move. The board position you've selected is already taken.")
-#             print("\n")
-#         except IndexError:
-#             print("\n")
-#             print("Invalid move. The board position you've selected is out of bounds.")
-#             print("\n")
-        
-
-
-# def main() -> int:
-#     print("STARTING GAME LOOP ... ")
-    
-#     GameLoop()
-#     return 0
-
-# if __name__ == '__main__':
-#     sys.exit(main())  # next section explains the use of sys.exit
+    def makeCalculatedMove():
+        pass

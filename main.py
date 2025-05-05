@@ -5,7 +5,7 @@ from tkinter import *
 from tkinter import messagebox
 from collections import OrderedDict
 from TicTacToe import *
-from playsound import playsound
+# from playsound import playsound
 import tkinter.font as TkFont
 import sys
 import math
@@ -33,15 +33,15 @@ PLAYER_UI_ELEMENTS={
 
 # pygame.mixer.init()# initialise the pygame
 def play():
-    print("Testing music")
-    # backgroundMusic = "sounds\Intense_mechanical_music.mp3"
-    # playsound(backgroundMusic, False)
-    
-    playsound("C:\\Users\\Yuon\\PersonalProjects\\CodeProjects\\Python\\TicTacToeApp\\sounds\\Intense_mechanical_music.mp3", False)
-    
-    print("After playing music")
-    # pygame.mixer.music.load(r"C:\Users\Yuon\PersonalProjects\CodeProjects\Python\TicTacToeApp\sounds\Intense_mechanical_music.mp3")
-    # pygame.mixer.music.play(loops=-1)
+    try:
+        # backgroundMusic = "sounds\Intense_mechanical_music.mp3"
+        # playsound(backgroundMusic, False)                 
+        pygame.mixer.music.load("C:\\Users\\Yuon\\PersonalProjects\\CodeProjects\\Python\\TicTacToeApp\\sounds\\Intense_mechanical_music.mp3")
+        pygame.mixer.music.play(loops=-1)
+        # playsound("C:\\Users\\Yuon\\PersonalProjects\\CodeProjects\\Python\\TicTacToeApp\\sounds\\Intense_mechanical_music.mp3", False)
+        
+    except:
+        pass
 
 
 # Check the state of the 
